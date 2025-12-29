@@ -3,6 +3,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-12-29",
   "vars": {
-    "BACKEND_BASE_URL": "http://161.33.227.214:18001"
+    "BACKEND_BASE_URL": "http://161.33.227.214:18001",
+    "INTERNAL_API_TOKEN": "Iamluckgirl"
   }
 }

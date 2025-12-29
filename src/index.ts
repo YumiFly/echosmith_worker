@@ -1,5 +1,6 @@
 export interface Env {
   BACKEND_BASE_URL: string
+  INTERNAL_API_TOKEN:string
 }
 
 function corsHeaders(origin: string) {
@@ -31,16 +32,20 @@ export default {
 
     // 3️⃣ 只转发“安全 header”
     const forwardHeaders = new Headers()
-    for (const [key, value] of request.headers.entries()) {
-      if (
-        key.toLowerCase() === "content-type" ||
-        key.toLowerCase() === "authorization" ||
-        key.toLowerCase() === "range"
-      ) {
-        forwardHeaders.set(key, value)
-      }
+
+    const contentType = request.headers.get("content-type")
+    if (contentType) {
+      forwardHeaders.set("content-type", contentType)
     }
 
+    const range = request.headers.get("range")
+    if (range) {
+      forwardHeaders.set("range", range)
+    }
+
+    forwardHeaders.set("X-Internal-Token",env.INTERNAL_API_TOKEN
+)
+  
     const resp = await fetch(targetURL, {
       method: request.method,
       headers: forwardHeaders,
