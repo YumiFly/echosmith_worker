@@ -6,7 +6,7 @@ export interface Env {
 function corsHeaders(origin: string) {
   return {
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS,HEAD",
+    "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS,HEAD,FETCH",
     "Access-Control-Allow-Headers": "Content-Type, Authorization, Range",
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Max-Age": "86400",
@@ -43,8 +43,7 @@ export default {
       forwardHeaders.set("range", range)
     }
 
-    forwardHeaders.set("X-Internal-Token",env.INTERNAL_API_TOKEN
-)
+    // forwardHeaders.set("X-Internal-Token",env.INTERNAL_API_TOKEN)
   
     const resp = await fetch(targetURL, {
       method: request.method,
